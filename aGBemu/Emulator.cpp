@@ -78,6 +78,7 @@ void Emulator::DoInterrupts()
 }
 int Emulator::ExecuteNextOpcode()
 {
+	return 0;
 	// Not Yet Implemented
 }
 void Emulator::RenderScreen()
