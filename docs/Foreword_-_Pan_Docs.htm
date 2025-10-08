@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en" class="navy" dir="ltr"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Foreword - Pan Docs</title>
+
+
+        <!-- Custom HTML head -->
+        <!-- Open Graph tags-->
+        <meta name="og:site_name" content="Pan Docs">
+        <meta name="og:image" content="https://gbdev.io/pandocs/favicon.png">
+        <meta name="og:title" content="Foreword">
+        <meta name="og:description" content="The single, most comprehensive technical reference to Game Boy available to the public.">
+        
+        <!-- Twitter meta tags -->
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:site" content="@gbdev0">
+        
+        <!-- MathML polyfill for Chrome -->
+        <script async="" src="Foreword%20-%20Pan%20Docs_files/matomo.js"></script><script src="Foreword%20-%20Pan%20Docs_files/mspace.js"></script>
+        
+        <!-- Matomo tracking code -->
+        <script>
+          var _paq = window._paq = window._paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//stats.gbdev.io/";
+            _paq.push(['setTrackerUrl', u+'matomo.php']);
+            _paq.push(['setSiteId', '1']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <!-- End Matomo Code -->
+
+        <meta name="description" content="The single, most comprehensive technical reference to Game Boy available to the public.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="rgb(22, 25, 35)">
+
+        <link rel="icon" href="https://gbdev.io/pandocs/favicon.svg">
+        <link rel="shortcut icon" href="https://gbdev.io/pandocs/favicon.png">
+        <link rel="stylesheet" href="Foreword%20-%20Pan%20Docs_files/variables.css">
+        <link rel="stylesheet" href="Foreword%20-%20Pan%20Docs_files/general.css">
+        <link rel="stylesheet" href="Foreword%20-%20Pan%20Docs_files/chrome.css">
+        <link rel="stylesheet" href="Foreword%20-%20Pan%20Docs_files/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="Foreword%20-%20Pan%20Docs_files/font-awesome.css">
+        <link rel="stylesheet" href="Foreword%20-%20Pan%20Docs_files/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="Foreword%20-%20Pan%20Docs_files/highlight.css" disabled="">
+        <link rel="stylesheet" href="Foreword%20-%20Pan%20Docs_files/tomorrow-night.css">
+        <link rel="stylesheet" href="Foreword%20-%20Pan%20Docs_files/ayu-highlight.css" disabled="">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="Foreword%20-%20Pan%20Docs_files/style.css">
+
+    </head>
+    <body class="js sidebar-visible">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden" checked="checked">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents" aria-hidden="false">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item affix "><a href="https://gbdev.io/pandocs/About.html" class="active" tabindex="0">Foreword</a></li><li class="chapter-item affix "><a href="https://gbdev.io/pandocs/Authors.html" tabindex="0">Acknowledgements</a></li><li class="chapter-item affix "><a href="https://gbdev.io/pandocs/History.html" tabindex="0">History</a></li><li class="chapter-item affix "></li><li class="spacer"></li><li class="chapter-item affix "></li><li class="part-title">Overview</li><li class="chapter-item "><a href="https://gbdev.io/pandocs/Specifications.html" tabindex="0"><strong aria-hidden="true">1.</strong> Specifications</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/Memory_Map.html" tabindex="0"><strong aria-hidden="true">2.</strong> Memory Map</a></li><li class="chapter-item affix "></li><li class="part-title">I/O Ports</li><li class="chapter-item "><a href="https://gbdev.io/pandocs/Hardware_Reg_List.html" tabindex="0"><strong aria-hidden="true">3.</strong> Summary</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/Graphics.html" tabindex="0"><strong aria-hidden="true">4.</strong> Graphics</a><a class="toggle" tabindex="0"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="https://gbdev.io/pandocs/Tile_Data.html" tabindex="0"><strong aria-hidden="true">4.1.</strong> Tile Data</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/Tile_Maps.html" tabindex="0"><strong aria-hidden="true">4.2.</strong> Tile Maps</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/OAM.html" tabindex="0"><strong aria-hidden="true">4.3.</strong> OAM</a><a class="toggle" tabindex="0"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="https://gbdev.io/pandocs/OAM_DMA_Transfer.html" tabindex="0"><strong aria-hidden="true">4.3.1.</strong> OAM DMA Transfer</a></li></ol></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/LCDC.html" tabindex="0"><strong aria-hidden="true">4.4.</strong> LCD Control</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/STAT.html" tabindex="0"><strong aria-hidden="true">4.5.</strong> LCD Status Registers</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/Scrolling.html" tabindex="0"><strong aria-hidden="true">4.6.</strong> Scrolling</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/Palettes.html" tabindex="0"><strong aria-hidden="true">4.7.</strong> Palettes</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/Rendering.html" tabindex="0"><strong aria-hidden="true">4.8.</strong> Rendering</a><a class="toggle" tabindex="0"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="https://gbdev.io/pandocs/pixel_fifo.html" tabindex="0"><strong aria-hidden="true">4.8.1.</strong> Pixel FIFO</a></li></ol></li></ol></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/Audio.html" tabindex="0"><strong aria-hidden="true">5.</strong> Audio</a><a class="toggle" tabindex="0"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="https://gbdev.io/pandocs/Audio_Registers.html" tabindex="0"><strong aria-hidden="true">5.1.</strong> Audio Registers</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/Audio_details.html" tabindex="0"><strong aria-hidden="true">5.2.</strong> Audio Details</a></li></ol></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/Joypad_Input.html" tabindex="0"><strong aria-hidden="true">6.</strong> Joypad Input</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/Serial_Data_Transfer_(Link_Cable).html" tabindex="0"><strong aria-hidden="true">7.</strong> Serial Data Transfer</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/Timer_and_Divider_Registers.html" tabindex="0"><strong aria-hidden="true">8.</strong> Timer and Divider Registers</a><a class="toggle" tabindex="0"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="https://gbdev.io/pandocs/Timer_Obscure_Behaviour.html" tabindex="0"><strong aria-hidden="true">8.1.</strong> Timer Obscure Behaviour</a></li></ol></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/Interrupts.html" tabindex="0"><strong aria-hidden="true">9.</strong> Interrupts</a><a class="toggle" tabindex="0"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="https://gbdev.io/pandocs/Interrupt_Sources.html" tabindex="0"><strong aria-hidden="true">9.1.</strong> Interrupt Sources</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/halt.html" tabindex="0"><strong aria-hidden="true">9.2.</strong> HALT</a></li></ol></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/CGB_Registers.html" tabindex="0"><strong aria-hidden="true">10.</strong> CGB Registers</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/IR.html" tabindex="0"><strong aria-hidden="true">11.</strong> Infrared Communication</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/SGB_Functions.html" tabindex="0"><strong aria-hidden="true">12.</strong> SGB Functions</a><a class="toggle" tabindex="0"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="https://gbdev.io/pandocs/SGB_Unlocking.html" tabindex="0"><strong aria-hidden="true">12.1.</strong> Unlocking and Detecting SGB Functions</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/SGB_Command_Packet.html" tabindex="0"><strong aria-hidden="true">12.2.</strong> Command Packet Transfers</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/SGB_VRAM_Transfer.html" tabindex="0"><strong aria-hidden="true">12.3.</strong> VRAM Transfers</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/SGB_Color_Palettes.html" tabindex="0"><strong aria-hidden="true">12.4.</strong> Color Palettes Overview</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/SGB_Command_Summary.html" tabindex="0"><strong aria-hidden="true">12.5.</strong> Command Summary</a><a class="toggle" tabindex="0"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="https://gbdev.io/pandocs/SGB_Command_Palettes.html" tabindex="0"><strong aria-hidden="true">12.5.1.</strong> Palette Commands</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/SGB_Command_Attribute.html" tabindex="0"><strong aria-hidden="true">12.5.2.</strong> Color Attribute Commands</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/SGB_Command_Sound.html" tabindex="0"><strong aria-hidden="true">12.5.3.</strong> Sound Functions</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/SGB_Command_System.html" tabindex="0"><strong aria-hidden="true">12.5.4.</strong> System Control Commands</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/SGB_Command_Multiplayer.html" tabindex="0"><strong aria-hidden="true">12.5.5.</strong> Multiplayer Command</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/SGB_Command_Border.html" tabindex="0"><strong aria-hidden="true">12.5.6.</strong> Border and OBJ Commands</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/SGB_Command_Undocumented.html" tabindex="0"><strong aria-hidden="true">12.5.7.</strong> Undocumented SGB commands</a></li></ol></li></ol></li><li class="chapter-item "></li><li class="part-title">CPU Specifications</li><li class="chapter-item "><a href="https://gbdev.io/pandocs/CPU_Registers_and_Flags.html" tabindex="0"><strong aria-hidden="true">13.</strong> CPU Registers and Flags</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/CPU_Instruction_Set.html" tabindex="0"><strong aria-hidden="true">14.</strong> CPU Instruction Set</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/CPU_Comparison_with_Z80.html" tabindex="0"><strong aria-hidden="true">15.</strong> CPU Comparison with Z80</a></li><li class="chapter-item affix "></li><li class="part-title">Cartridges</li><li class="chapter-item "><a href="https://gbdev.io/pandocs/The_Cartridge_Header.html" tabindex="0"><strong aria-hidden="true">16.</strong> The Cartridge Header</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/MBCs.html" tabindex="0"><strong aria-hidden="true">17.</strong> MBCs</a><a class="toggle" tabindex="0"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="https://gbdev.io/pandocs/nombc.html" tabindex="0"><strong aria-hidden="true">17.1.</strong> No MBC</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/MBC1.html" tabindex="0"><strong aria-hidden="true">17.2.</strong> MBC1</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/MBC2.html" tabindex="0"><strong aria-hidden="true">17.3.</strong> MBC2</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/MBC3.html" tabindex="0"><strong aria-hidden="true">17.4.</strong> MBC3</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/MBC5.html" tabindex="0"><strong aria-hidden="true">17.5.</strong> MBC5</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/MBC6.html" tabindex="0"><strong aria-hidden="true">17.6.</strong> MBC6</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/MBC7.html" tabindex="0"><strong aria-hidden="true">17.7.</strong> MBC7</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/MMM01.html" tabindex="0"><strong aria-hidden="true">17.8.</strong> MMM01</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/M161.html" tabindex="0"><strong aria-hidden="true">17.9.</strong> M161</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/HuC1.html" tabindex="0"><strong aria-hidden="true">17.10.</strong> HuC1</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/HuC3.html" tabindex="0"><strong aria-hidden="true">17.11.</strong> HuC-3</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/othermbc.html" tabindex="0"><strong aria-hidden="true">17.12.</strong> Other MBCs</a></li></ol></li><li class="chapter-item "></li><li class="part-title">Accessories</li><li class="chapter-item "><a href="https://gbdev.io/pandocs/Gameboy_Printer.html" tabindex="0"><strong aria-hidden="true">18.</strong> Game Boy Printer</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/Gameboy_Camera.html" tabindex="0"><strong aria-hidden="true">19.</strong> Game Boy Camera</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/Four_Player_Adapter.html" tabindex="0"><strong aria-hidden="true">20.</strong> 4-Player Adapter</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/Shark_Cheats.html" tabindex="0"><strong aria-hidden="true">21.</strong> Game Genie/Shark Cheats</a></li><li class="chapter-item affix "></li><li class="part-title">Other</li><li class="chapter-item "><a href="https://gbdev.io/pandocs/Power_Up_Sequence.html" tabindex="0"><strong aria-hidden="true">22.</strong> Power-Up Sequence</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/Reducing_Power_Consumption.html" tabindex="0"><strong aria-hidden="true">23.</strong> Reducing Power Consumption</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/Accessing_VRAM_and_OAM.html" tabindex="0"><strong aria-hidden="true">24.</strong> Accessing VRAM and OAM</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/OAM_Corruption_Bug.html" tabindex="0"><strong aria-hidden="true">25.</strong> OAM Corruption Bug</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/External_Connectors.html" tabindex="0"><strong aria-hidden="true">26.</strong> External Connectors</a></li><li class="chapter-item "><a href="https://gbdev.io/pandocs/GBC_Approval_Process.html" tabindex="0"><strong aria-hidden="true">27.</strong> GBC Approval Process</a></li><li class="chapter-item affix "></li><li class="spacer"></li><li class="chapter-item affix "><a href="https://gbdev.io/pandocs/References.html" tabindex="0">References</a></li><li class="chapter-item affix "><a href="https://gbdev.io/pandocs/single.html" tabindex="0">Single-page version</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar" style="top: 0px;">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar" aria-expanded="true">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme theme-selected" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Pan Docs</h1>
+
+                    <div class="right-buttons">
+                        <a href="https://gbdev.io/pandocs/print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/gbdev/pandocs" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/gbdev/pandocs/edit/master/src/About.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="foreword"><a class="header" href="#foreword">Foreword</a></h1>
+<p>This document, started in early 1995, is considered the single most 
+comprehensive technical reference to Game Boy available to the public.</p>
+<p>You are reading a new version of it, maintained in the Markdown format and enjoying renewed <a href="https://gbdev.io/">community</a>
+ attention, correcting and updating it with recent findings. To learn 
+more about the legacy and the mission of this initiative, check <a href="https://gbdev.io/pandocs/History.html">History</a>.</p>
+<div class="box tip-box"><p class="box-title">SCOPE</p>
+<p>The information here is targeted at homebrew development.
+Emulator developers may be also interested in the <a href="https://gekkio.fi/files/gb-docs/gbctr.pdf">Game Boy: Complete Technical Reference</a> document.</p>
+</div>
+<h2 id="contributing"><a class="header" href="#contributing">Contributing</a></h2>
+<p>This project is open source, released under the <a href="https://raw.githubusercontent.com/gbdev/pandocs/master/LICENSE">CC0 license</a>. Everyone is welcome to help, provide feedback and propose additions or improvements. The git repository is hosted at <a href="https://github.com/gbdev/pandocs">github.com/gbdev/pandocs</a>, where you can learn more about how you can <a href="https://github.com/gbdev/pandocs/blob/master/CONTRIBUTING.md">contribute</a>, find detailed contribution guidelines and procedures, file Issues and send Pull Requests.</p>
+<p>There is a <a href="https://gbdev.io/chat">Discord chat</a> dedicated to the gbdev community.</p>
+<p>Finally, you can also contact us and send patches via email: <code class="hljs language-undefined">pandocs (at) gbdev.io</code>.</p>
+<h2 id="using-this-document"><a class="header" href="#using-this-document">Using this document</a></h2>
+<p>In the top navigation bar, you will find a series of icons.</p>
+<p>By clicking on the <i class="fa fa-bars"></i> icon you will toggle an interactive table of contents to navigate the document. You can also use <kbd>→</kbd> and <kbd>←</kbd> keys on your keyboard to go to the following and previous page.</p>
+<p>The <i class="fa fa-paint-brush"></i> lets you choose among 5 different themes and color schemes to please your reading experience.</p>
+<p>You can search anywhere by pressing <kbd>s</kbd> on your keyboard or clicking the <i class="fa fa-search"></i> icon.</p>
+<p>The <i class="fa fa-edit"></i> icon allows you to suggest an edit on the current page by directly opening the source file in the git repository.</p>
+<p><br><br><small>This document version was produced from git commit <a href="https://github.com/gbdev/pandocs/tree/4b31c4ba0bccc94080b80216287d14519d18e160"><code class="hljs language-undefined">4b31c4b</code></a> (2025-10-04 06:15:39 +0200).</small></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+                            <a rel="next prefetch" href="https://gbdev.io/pandocs/Authors.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+                    <a rel="next prefetch" href="https://gbdev.io/pandocs/Authors.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="Foreword%20-%20Pan%20Docs_files/elasticlunr.min.js"></script>
+        <script src="Foreword%20-%20Pan%20Docs_files/mark.min.js"></script>
+        <script src="Foreword%20-%20Pan%20Docs_files/searcher.js"></script>
+
+        <script src="Foreword%20-%20Pan%20Docs_files/clipboard.min.js"></script>
+        <script src="Foreword%20-%20Pan%20Docs_files/highlight.js"></script>
+        <script src="Foreword%20-%20Pan%20Docs_files/book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    
+
+</body></html>
