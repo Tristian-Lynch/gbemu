@@ -4,8 +4,8 @@
     <Filter Include="Emulator">
       <UniqueIdentifier>{ec93ba11-b9b7-4f66-b5ba-3506f101d30d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="aGBemu">
-      <UniqueIdentifier>{a1d11799-6399-41bd-bbc5-968d1207024d}</UniqueIdentifier>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{62875d62-8a39-4f86-865a-c34853dc46d3}</UniqueIdentifier>
     </Filter>
     <Filter Include="Main">
       <UniqueIdentifier>{6ef0dee3-046c-4ef7-89c8-94d4b23bc15d}</UniqueIdentifier>
@@ -15,25 +15,52 @@
     <ClCompile Include="Emulator.cpp">
       <Filter>Emulator</Filter>
     </ClCompile>
-    <ClCompile Include="Emulator.CPU.cpp">
-      <Filter>Emulator</Filter>
-    </ClCompile>
-    <ClCompile Include="Emulator.JumpTable.cpp">
+    <ClCompile Include="CPU.cpp">
       <Filter>Emulator</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Main</Filter>
     </ClCompile>
-    <ClCompile Include="aGBemu.cpp">
-      <Filter>aGBemu</Filter>
+    <ClCompile Include="Memory.cpp">
+      <Filter>Emulator</Filter>
+    </ClCompile>
+    <ClCompile Include="Timers.cpp">
+      <Filter>Emulator</Filter>
+    </ClCompile>
+    <ClCompile Include="PPU.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Emulator.h">
       <Filter>Emulator</Filter>
     </ClInclude>
-    <ClInclude Include="aGBemu.h">
-      <Filter>aGBemu</Filter>
+    <ClInclude Include="CPU.h">
+      <Filter>Emulator</Filter>
+    </ClInclude>
+    <ClInclude Include="Memory.h">
+      <Filter>Emulator</Filter>
+    </ClInclude>
+    <ClInclude Include="Timers.h">
+      <Filter>Emulator</Filter>
+    </ClInclude>
+    <ClInclude Include="PPU.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Types.h">
+      <Filter>Main</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

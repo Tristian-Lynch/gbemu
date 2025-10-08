@@ -2,14 +2,10 @@
 
 #include <string>
 #include <fstream>
+#include "Types.h"
 
 #ifndef _EMU_H
 #define _EMU_H
-
-typedef unsigned char BYTE;
-typedef char SIGNED_BYTE;
-typedef unsigned short WORD;
-typedef signed short SIGNED_WORD;
 
 class Emulator
 {

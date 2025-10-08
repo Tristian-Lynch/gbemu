@@ -143,15 +143,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="aGBemu.cpp" />
     <ClCompile Include="Emulator.cpp" />
-    <ClCompile Include="Emulator.CPU.cpp" />
-    <ClCompile Include="Emulator.JumpTable.cpp" />
+    <ClCompile Include="CPU.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Memory.cpp" />
+    <ClCompile Include="PPU.cpp" />
+    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="Timers.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="aGBemu.h" />
+    <ClInclude Include="CPU.h" />
     <ClInclude Include="Emulator.h" />
+    <ClInclude Include="Input.h" />
+    <ClInclude Include="Memory.h" />
+    <ClInclude Include="PPU.h" />
+    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="Timers.h" />
+    <ClInclude Include="Types.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
