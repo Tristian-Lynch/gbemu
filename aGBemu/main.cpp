@@ -1,5 +1,3 @@
-#include "agbemu.h"
-
 int main()
 {
     // initialize different threads...
