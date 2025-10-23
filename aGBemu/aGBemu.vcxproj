@@ -18,6 +18,40 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\external\imgui\backends\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="..\external\imgui\backends\imgui_impl_sdl3.cpp" />
+    <ClCompile Include="..\external\imgui\imgui.cpp" />
+    <ClCompile Include="..\external\imgui\imgui_draw.cpp" />
+    <ClCompile Include="..\external\imgui\imgui_tables.cpp" />
+    <ClCompile Include="..\external\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="src\aGBemu.cpp" />
+    <ClCompile Include="src\CPU.cpp" />
+    <ClCompile Include="src\Emulator.cpp" />
+    <ClCompile Include="src\glad.c" />
+    <ClCompile Include="src\Input.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\PPU.cpp" />
+    <ClCompile Include="src\Renderer.cpp" />
+    <ClCompile Include="src\Timers.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\external\imgui\backends\imgui_impl_opengl3.h" />
+    <ClInclude Include="..\external\imgui\backends\imgui_impl_sdl3.h" />
+    <ClInclude Include="..\external\imgui\imconfig.h" />
+    <ClInclude Include="..\external\imgui\imgui.h" />
+    <ClInclude Include="..\external\imgui\imgui_internal.h" />
+    <ClInclude Include="include\glad.h" />
+    <ClInclude Include="include\khrplatform.h" />
+    <ClInclude Include="src\aGBemu.h" />
+    <ClInclude Include="src\CPU.h" />
+    <ClInclude Include="src\Emulator.h" />
+    <ClInclude Include="src\Input.h" />
+    <ClInclude Include="src\PPU.h" />
+    <ClInclude Include="src\Renderer.h" />
+    <ClInclude Include="src\Timers.h" />
+    <ClInclude Include="src\Types.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -76,7 +110,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)SDL\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)aGBemu\include\;$(SolutionDir)external\imgui\backends\;$(SolutionDir)external\imgui\;$(SolutionDir)SDL\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -95,7 +129,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)SDL\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)aGBemu\include\;$(SolutionDir)external\imgui\backends\;$(SolutionDir)external\imgui\;$(SolutionDir)SDL\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -112,7 +146,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)SDL\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)aGBemu\include\;$(SolutionDir)external\imgui\backends\;$(SolutionDir)external\imgui\;$(SolutionDir)SDL\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -131,7 +165,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)SDL\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)aGBemu\include\;$(SolutionDir)external\imgui\backends\;$(SolutionDir)external\imgui\;$(SolutionDir)SDL\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -142,26 +176,6 @@
       <AdditionalDependencies>SDL3.lib;SDL3_test.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Emulator.cpp" />
-    <ClCompile Include="CPU.cpp" />
-    <ClCompile Include="Input.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Memory.cpp" />
-    <ClCompile Include="PPU.cpp" />
-    <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="Timers.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="CPU.h" />
-    <ClInclude Include="Emulator.h" />
-    <ClInclude Include="Input.h" />
-    <ClInclude Include="Memory.h" />
-    <ClInclude Include="PPU.h" />
-    <ClInclude Include="Renderer.h" />
-    <ClInclude Include="Timers.h" />
-    <ClInclude Include="Types.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
