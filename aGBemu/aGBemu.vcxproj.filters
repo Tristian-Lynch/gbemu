@@ -10,57 +10,108 @@
     <Filter Include="Main">
       <UniqueIdentifier>{6ef0dee3-046c-4ef7-89c8-94d4b23bc15d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="etc">
+      <UniqueIdentifier>{dd5c4fed-43e4-458e-b036-89e67c550300}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="imgui">
+      <UniqueIdentifier>{6196fda2-309d-4c8a-9cff-24df9ae24ad2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="imgui\backend">
+      <UniqueIdentifier>{1b9f0f28-3b2a-4ceb-a48f-f05e53b787fb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Emulator.cpp">
-      <Filter>Emulator</Filter>
-    </ClCompile>
-    <ClCompile Include="CPU.cpp">
-      <Filter>Emulator</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="src\main.cpp">
       <Filter>Main</Filter>
     </ClCompile>
-    <ClCompile Include="Memory.cpp">
+    <ClCompile Include="src\aGBemu.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Input.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PPU.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Timers.cpp">
       <Filter>Emulator</Filter>
     </ClCompile>
-    <ClCompile Include="Timers.cpp">
+    <ClCompile Include="src\CPU.cpp">
       <Filter>Emulator</Filter>
     </ClCompile>
-    <ClCompile Include="PPU.cpp">
-      <Filter>Graphics</Filter>
+    <ClCompile Include="src\Emulator.cpp">
+      <Filter>Emulator</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer.cpp">
-      <Filter>Graphics</Filter>
+    <ClCompile Include="src\glad.c">
+      <Filter>etc</Filter>
     </ClCompile>
-    <ClCompile Include="Input.cpp">
-      <Filter>Graphics</Filter>
+    <ClCompile Include="..\external\imgui\imgui.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\external\imgui\imgui_draw.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\external\imgui\imgui_tables.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\external\imgui\imgui_widgets.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\external\imgui\backends\imgui_impl_opengl3.cpp">
+      <Filter>imgui\backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\external\imgui\backends\imgui_impl_sdl3.cpp">
+      <Filter>imgui\backend</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Emulator.h">
-      <Filter>Emulator</Filter>
-    </ClInclude>
-    <ClInclude Include="CPU.h">
-      <Filter>Emulator</Filter>
-    </ClInclude>
-    <ClInclude Include="Memory.h">
-      <Filter>Emulator</Filter>
-    </ClInclude>
-    <ClInclude Include="Timers.h">
-      <Filter>Emulator</Filter>
-    </ClInclude>
-    <ClInclude Include="PPU.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Input.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Types.h">
+    <ClInclude Include="src\aGBemu.h">
       <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Input.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PPU.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Timers.h">
+      <Filter>Emulator</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Types.h">
+      <Filter>Emulator</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CPU.h">
+      <Filter>Emulator</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Emulator.h">
+      <Filter>Emulator</Filter>
+    </ClInclude>
+    <ClInclude Include="include\glad.h">
+      <Filter>etc</Filter>
+    </ClInclude>
+    <ClInclude Include="include\khrplatform.h">
+      <Filter>etc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external\imgui\imgui.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external\imgui\backends\imgui_impl_opengl3.h">
+      <Filter>imgui\backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external\imgui\backends\imgui_impl_sdl3.h">
+      <Filter>imgui\backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external\imgui\imconfig.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external\imgui\imgui_internal.h">
+      <Filter>imgui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
