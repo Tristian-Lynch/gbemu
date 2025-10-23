@@ -1,26 +1,25 @@
 #pragma once
-
 #include <SDL3/SDL.h>
-#include <string>
 
+// Forward declaration for optional PPU framebuffer rendering
 class PPU;
 
 class Renderer {
 public:
-	Renderer();
-	~Renderer();
+    Renderer();
+    ~Renderer();
 
-	bool Init(const std::string& title, int width, int height);
-	void BeginFrame();
-	void Render();
-	void EndFrame();
-	void Shutdown();
+    // Initialize OpenGL + ImGui
+    bool Init(SDL_Window* window);
+
+    // Frame management
+    void BeginFrame();
+    void RenderUI(PPU* ppu = nullptr);
+    void EndFrame();
+
+    // Cleanup
+    void Shutdown();
 
 private:
-	SDL_Window* window = nullptr;
-	SDL_GLContext glContext = nullptr;
-	bool initialized = false;
-
-	void InitImGui();
-	void RenderImGuiUI(PPU& ppu);
+    SDL_GLContext glContext;  // OpenGL context
 };

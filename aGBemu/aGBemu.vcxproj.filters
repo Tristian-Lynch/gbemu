@@ -16,6 +16,9 @@
     <Filter Include="imgui">
       <UniqueIdentifier>{6196fda2-309d-4c8a-9cff-24df9ae24ad2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="imgui\backend">
+      <UniqueIdentifier>{1b9f0f28-3b2a-4ceb-a48f-f05e53b787fb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -44,6 +47,24 @@
     </ClCompile>
     <ClCompile Include="src\glad.c">
       <Filter>etc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\external\imgui\imgui.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\external\imgui\imgui_draw.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\external\imgui\imgui_tables.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\external\imgui\imgui_widgets.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\external\imgui\backends\imgui_impl_opengl3.cpp">
+      <Filter>imgui\backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\external\imgui\backends\imgui_impl_sdl3.cpp">
+      <Filter>imgui\backend</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -76,6 +97,21 @@
     </ClInclude>
     <ClInclude Include="include\khrplatform.h">
       <Filter>etc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external\imgui\imgui.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external\imgui\backends\imgui_impl_opengl3.h">
+      <Filter>imgui\backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external\imgui\backends\imgui_impl_sdl3.h">
+      <Filter>imgui\backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external\imgui\imconfig.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external\imgui\imgui_internal.h">
+      <Filter>imgui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
