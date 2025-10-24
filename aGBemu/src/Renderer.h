@@ -26,4 +26,13 @@ private:
     SDL_Window* window;
 
     GLuint gbTexture;
+
+    // Fullscreen quad for scaling GameBoy framebuffer
+    GLuint quadVAO = 0;
+    GLuint quadVBO = 0;
+    GLuint shaderProgram = 0;
+
+    void InitFullscreenQuad();
+    void InitShaders();
+    GLuint CompileShader(const char* source, GLenum type);
 };

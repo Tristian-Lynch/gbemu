@@ -38,4 +38,7 @@ private:
     void RenderTileLine(int tileX, int tileY, int line);
     void RenderSprites();
     void RenderSprite(int index);
+
+    // Internal helper, not exposed publicly
+    inline uint8_t GetTilePixel(const uint8_t* tileData, int x, int y);
 };

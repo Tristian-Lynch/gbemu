@@ -21,9 +21,6 @@ int main()
         return -1;
     }
 
-    // Initialize the framebuffer texture AFTER OpenGL context exists
-    renderer->InitFramebufferTexture();
-
     PPU ppu; // PPU instance
 
     MainLoop(window, renderer, ppu);

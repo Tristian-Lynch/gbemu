@@ -1,29 +1,24 @@
 #include "PPU.h"
 #include <cstring>
 
-// Helper macro to get tile pixel value (2 bits per pixel)
-#define GET_TILE_PIXEL(tileData, x, y) (((tileData[y * 2] >> (7 - x)) & 1) | (((tileData[y * 2 + 1] >> (7 - x)) & 1) << 1))
-
 PPU::PPU() {
     Reset();
 }
 
 void PPU::Reset() {
-    std::memset(framebuffer, 0xFF, sizeof(framebuffer)); // white
+    std::memset(framebuffer, 0xFF, sizeof(framebuffer));
     std::memset(vram, 0, sizeof(vram));
     std::memset(oam, 0, sizeof(oam));
 
-    lcdc = 0x91; // BG on, 8x8 tiles, default map
+    lcdc = 0x91;
     scx = 0;
     scy = 0;
 
-    // Background palette (0=white, 3=black)
     palette[0][0] = palette[0][1] = palette[0][2] = 255;
     palette[1][0] = palette[1][1] = palette[1][2] = 192;
     palette[2][0] = palette[2][1] = palette[2][2] = 96;
     palette[3][0] = palette[3][1] = palette[3][2] = 0;
 
-    // Sprite palettes OBP0 / OBP1
     for (int p = 0; p < 2; p++) {
         spritePalette[p][0][0] = spritePalette[p][0][1] = spritePalette[p][0][2] = 255;
         spritePalette[p][1][0] = spritePalette[p][1][1] = spritePalette[p][1][2] = 192;
@@ -31,8 +26,7 @@ void PPU::Reset() {
         spritePalette[p][3][0] = spritePalette[p][3][1] = spritePalette[p][3][2] = 0;
     }
 
-    // Fill VRAM with test tiles: checkerboard
-    for (int t = 0; t < 384; t++) { // 384 tiles
+    for (int t = 0; t < 384; t++) {
         for (int y = 0; y < 8; y++) {
             uint8_t row1 = (y % 2) ? 0xAA : 0x55;
             uint8_t row2 = row1;
@@ -41,25 +35,22 @@ void PPU::Reset() {
         }
     }
 
-    // Fill tile map 0 (0x9800) sequentially
     for (int i = 0; i < 1024; i++) {
         vram[0x1800 + i] = i % 384;
     }
 
-    // Optional: add test sprite
-    oam[0] = 50;  // Y position
-    oam[1] = 50;  // X position
-    oam[2] = 1;   // Tile number
-    oam[3] = 0;   // Flags (palette 0)
+    oam[0] = 50;  oam[1] = 50;  oam[2] = 1;  oam[3] = 0;
 }
 
-// Render the full frame
+inline uint8_t PPU::GetTilePixel(const uint8_t* tileData, int x, int y) {
+    return ((tileData[y * 2] >> (7 - x)) & 1) | (((tileData[y * 2 + 1] >> (7 - x)) & 1) << 1);
+}
+
 void PPU::RenderFrame() {
     RenderBackground();
     RenderSprites();
 }
 
-// Render background tiles
 void PPU::RenderBackground() {
     const uint8_t* tileMap = &vram[0x1800];
 
@@ -74,7 +65,7 @@ void PPU::RenderBackground() {
             uint8_t tileNum = tileMap[(tileRow % 32) * 32 + (tileCol % 32)];
             const uint8_t* tileData = &vram[tileNum * 16];
 
-            uint8_t colorIndex = GET_TILE_PIXEL(tileData, pixelCol, pixelRow);
+            uint8_t colorIndex = GetTilePixel(tileData, pixelCol, pixelRow);
             uint8_t* rgb = &framebuffer[(y * 160 + x) * 3];
 
             rgb[0] = palette[colorIndex][0];
@@ -84,14 +75,12 @@ void PPU::RenderBackground() {
     }
 }
 
-// Render all sprites
 void PPU::RenderSprites() {
     for (int i = 0; i < 40; i++) {
         RenderSprite(i);
     }
 }
 
-// Render one sprite
 void PPU::RenderSprite(int index) {
     int offset = index * 4;
     int y = oam[offset + 0] - 16;
@@ -99,7 +88,6 @@ void PPU::RenderSprite(int index) {
     uint8_t tileNum = oam[offset + 2];
     uint8_t flags = oam[offset + 3];
 
-    bool priority = flags & 0x80;
     bool yFlip = flags & 0x40;
     bool xFlip = flags & 0x20;
     int paletteNum = (flags & 0x10) ? 1 : 0;
@@ -114,12 +102,10 @@ void PPU::RenderSprite(int index) {
             int px = x + (xFlip ? 7 - col : col);
             if (px < 0 || px >= 160) continue;
 
-            uint8_t colorIndex = GET_TILE_PIXEL(tileData, col, row);
-            if (colorIndex == 0) continue; // Transparent
+            uint8_t colorIndex = GetTilePixel(tileData, col, row);
+            if (colorIndex == 0) continue;
 
             uint8_t* rgb = &framebuffer[(py * 160 + px) * 3];
-
-            // Priority handling simplified: always draw on top for now
             rgb[0] = spritePalette[paletteNum][colorIndex][0];
             rgb[1] = spritePalette[paletteNum][colorIndex][1];
             rgb[2] = spritePalette[paletteNum][colorIndex][2];
