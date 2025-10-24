@@ -22,4 +22,5 @@ public:
 
 private:
     SDL_GLContext glContext;  // OpenGL context
+    SDL_Window* window; // reference to OpenGL window.
 };

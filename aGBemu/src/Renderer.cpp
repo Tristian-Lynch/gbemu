@@ -13,7 +13,9 @@ Renderer::~Renderer() { Shutdown(); }
 // Initialize SDL3 OpenGL context + GLAD + ImGui
 bool Renderer::Init(SDL_Window* window)
 {
+    this->window = window;
     glContext = SDL_GL_CreateContext(window);
+
     if (!glContext) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION,
             "Failed to create OpenGL context: %s", SDL_GetError());
@@ -64,7 +66,7 @@ void Renderer::RenderUI(PPU* ppu)
 
 void Renderer::EndFrame()
 {
-    SDL_GL_SwapWindow(SDL_GL_GetCurrentWindow());
+    SDL_GL_SwapWindow(window);
 }
 
 void Renderer::Shutdown()
