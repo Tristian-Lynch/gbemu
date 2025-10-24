@@ -1,5 +1,7 @@
 #pragma once
+#include <glad.h>
 #include <SDL3/SDL.h>
+#include <SDL3/SDL_opengl.h>
 
 // Forward declaration for optional PPU framebuffer rendering
 class PPU;
@@ -9,18 +11,19 @@ public:
     Renderer();
     ~Renderer();
 
-    // Initialize OpenGL + ImGui
     bool Init(SDL_Window* window);
+    void InitFramebufferTexture();
 
-    // Frame management
     void BeginFrame();
     void RenderUI(PPU* ppu = nullptr);
     void EndFrame();
+    void RenderGameboyFrame(uint8_t* ppuFramebuffer);
 
-    // Cleanup
     void Shutdown();
 
 private:
-    SDL_GLContext glContext;  // OpenGL context
-    SDL_Window* window; // reference to OpenGL window.
+    SDL_GLContext glContext;
+    SDL_Window* window;
+
+    GLuint gbTexture;
 };
