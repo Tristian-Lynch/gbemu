@@ -1,3 +1,3 @@
 # aGBemu 🎮
 
-*A Game Boy emulator written in C++ using SDL3.*
+*A Game Boy emulator written in C++ using SDL3, OpenGL, and imGui*
