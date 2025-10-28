@@ -1,6 +1,10 @@
 #include "Emulator.h"
+#include <cstring>
+#include <iostream>
+#include <fstream>
 
 Emulator::Emulator()
+	: mmu(&ppu), cpu(&mmu) // Initialize MMU with PPU, CPU with MMU
 {
 
 }
@@ -19,13 +23,17 @@ bool Emulator::LoadRom(const std::string& romName)
 	std::ifstream file(romName, std::ios::binary);
 
 	// if the file does not read correctly, return false
-	if (!file) { return false; }
+	if (!file) {
+		std::cerr << "Failed to open ROM: " << romName << std::endl;
+		return false;
+	}
 
 	// Read ROM into memory
 	file.read(reinterpret_cast<char*>(m_cartridgeMemory), sizeof(m_cartridgeMemory));
 
 	// Detect Oversized ROM
 	if (file.gcount() == sizeof(m_cartridgeMemory)) {
+		std::cerr << "Warning: ROM may be too large for memory!" << std::endl;
 		// Possible Future Implementation.
 	}
 
@@ -36,8 +44,8 @@ bool Emulator::LoadRom(const std::string& romName)
 void Emulator::Update()
 {
 	// Number of CPU cycles per frame, at 60 frames per second.
-	const int MAX_CYCLES = 69905; 
-	
+	const int MAX_CYCLES = 69905;
+
 	// counter for number of cycles this frame.
 	int currentCycles = 0;
 
@@ -60,27 +68,41 @@ void Emulator::Update()
 	}
 
 	RenderScreen();
-
 }
 
 void Emulator::UpdateTimers(int cycles)
 {
 	// Not Yet Implemented
 }
+
 void Emulator::UpdateGraphics(int cycles)
 {
 	// Not Yet Implemented
 }
-void Emulator::DoInterrupts() 
+
+void Emulator::DoInterrupts()
 {
 	// Not Yet Implemented
 }
+
 int Emulator::ExecuteNextOpcode()
 {
-	// Not Yet Implemented
-	return 0;
+	// Step CPU once
+	cpu.Step();
+
+	// For now, return 1 cycle per instruction (simplified)
+	return 1;
 }
+
 void Emulator::RenderScreen()
 {
-	// Not Yet Implemented
+	// Get PPU framebuffer for rendering
+	uint8_t* framebuffer = ppu.GetFramebuffer();
+
+	// TODO: integrate with SDL/OpenGL renderer
+	// Example for testing first pixel:
+	// std::cout << "Pixel 0 RGB: "
+	//           << int(framebuffer[0]) << ", "
+	//           << int(framebuffer[1]) << ", "
+	//           << int(framebuffer[2]) << std::endl;
 }

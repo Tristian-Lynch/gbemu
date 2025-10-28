@@ -63,7 +63,7 @@
     <ClCompile Include="..\external\imgui\backends\imgui_impl_sdl3.cpp">
       <Filter>imgui\backend</Filter>
     </ClCompile>
-    <ClCompile Include="MMU.cpp">
+    <ClCompile Include="src\MMU.cpp">
       <Filter>Emulator</Filter>
     </ClCompile>
   </ItemGroup>
@@ -110,7 +110,7 @@
     <ClInclude Include="..\external\imgui\imgui_internal.h">
       <Filter>imgui</Filter>
     </ClInclude>
-    <ClInclude Include="MMU.h">
+    <ClInclude Include="src\MMU.h">
       <Filter>Emulator</Filter>
     </ClInclude>
   </ItemGroup>
