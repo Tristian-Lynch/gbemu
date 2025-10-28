@@ -1,5 +1,4 @@
 #include "Emulator.h"
-#include "aGBemu.h"
 
 Emulator::Emulator()
 {

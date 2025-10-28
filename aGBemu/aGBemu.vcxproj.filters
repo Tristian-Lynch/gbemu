@@ -24,9 +24,6 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Main</Filter>
     </ClCompile>
-    <ClCompile Include="src\aGBemu.cpp">
-      <Filter>Main</Filter>
-    </ClCompile>
     <ClCompile Include="src\Input.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
@@ -66,11 +63,11 @@
     <ClCompile Include="..\external\imgui\backends\imgui_impl_sdl3.cpp">
       <Filter>imgui\backend</Filter>
     </ClCompile>
+    <ClCompile Include="MMU.cpp">
+      <Filter>Emulator</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\aGBemu.h">
-      <Filter>Main</Filter>
-    </ClInclude>
     <ClInclude Include="src\Input.h">
       <Filter>Graphics</Filter>
     </ClInclude>
@@ -112,6 +109,9 @@
     </ClInclude>
     <ClInclude Include="..\external\imgui\imgui_internal.h">
       <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="MMU.h">
+      <Filter>Emulator</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

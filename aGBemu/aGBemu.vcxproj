@@ -25,7 +25,7 @@
     <ClCompile Include="..\external\imgui\imgui_draw.cpp" />
     <ClCompile Include="..\external\imgui\imgui_tables.cpp" />
     <ClCompile Include="..\external\imgui\imgui_widgets.cpp" />
-    <ClCompile Include="src\aGBemu.cpp" />
+    <ClCompile Include="MMU.cpp" />
     <ClCompile Include="src\CPU.cpp" />
     <ClCompile Include="src\Emulator.cpp" />
     <ClCompile Include="src\glad.c" />
@@ -43,7 +43,7 @@
     <ClInclude Include="..\external\imgui\imgui_internal.h" />
     <ClInclude Include="include\glad.h" />
     <ClInclude Include="include\khrplatform.h" />
-    <ClInclude Include="src\aGBemu.h" />
+    <ClInclude Include="MMU.h" />
     <ClInclude Include="src\CPU.h" />
     <ClInclude Include="src\Emulator.h" />
     <ClInclude Include="src\Input.h" />
@@ -110,7 +110,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)aGBemu\include\;$(SolutionDir)external\imgui\backends\;$(SolutionDir)external\imgui\;$(SolutionDir)SDL\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)aGBemu\src\;$(SolutionDir)aGBemu\include\;$(SolutionDir)external\imgui\backends\;$(SolutionDir)external\imgui\;$(SolutionDir)SDL\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -129,7 +129,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)aGBemu\include\;$(SolutionDir)external\imgui\backends\;$(SolutionDir)external\imgui\;$(SolutionDir)SDL\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)aGBemu\src\;$(SolutionDir)aGBemu\include\;$(SolutionDir)external\imgui\backends\;$(SolutionDir)external\imgui\;$(SolutionDir)SDL\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -146,7 +146,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)aGBemu\include\;$(SolutionDir)external\imgui\backends\;$(SolutionDir)external\imgui\;$(SolutionDir)SDL\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)aGBemu\src\;$(SolutionDir)aGBemu\include\;$(SolutionDir)external\imgui\backends\;$(SolutionDir)external\imgui\;$(SolutionDir)SDL\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -165,7 +165,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)aGBemu\include\;$(SolutionDir)external\imgui\backends\;$(SolutionDir)external\imgui\;$(SolutionDir)SDL\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)aGBemu\src\;$(SolutionDir)aGBemu\include\;$(SolutionDir)external\imgui\backends\;$(SolutionDir)external\imgui\;$(SolutionDir)SDL\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>

@@ -112,3 +112,12 @@ void PPU::RenderSprite(int index) {
         }
     }
 }
+
+// --- NEW HELPER FUNCTIONS FOR MMU ACCESS ---
+uint8_t PPU::ReadVRAM(uint16_t addr) { return vram[addr]; }
+void PPU::WriteVRAM(uint16_t addr, uint8_t value) { vram[addr] = value; }
+
+uint8_t PPU::ReadOAM(uint16_t addr) { return oam[addr]; }
+void PPU::WriteOAM(uint16_t addr, uint8_t value) { oam[addr] = value; }
+
+uint8_t* PPU::GetFramebuffer() { return framebuffer; }
