@@ -10,7 +10,14 @@ public:
     void RenderFrame();
 
     // Return framebuffer for renderer
-    uint8_t* GetFramebuffer() { return framebuffer; }
+    uint8_t* GetFramebuffer();
+
+    // --- NEW: VRAM / OAM access for MMU ---
+    uint8_t ReadVRAM(uint16_t addr);
+    void WriteVRAM(uint16_t addr, uint8_t value);
+
+    uint8_t ReadOAM(uint16_t addr);
+    void WriteOAM(uint16_t addr, uint8_t value);
 
 private:
     // GameBoy framebuffer: 160x144 RGB
