@@ -25,7 +25,7 @@ void main() {
 })";
 
 // Constructor / Destructor
-Renderer::Renderer() : glContext(nullptr), window(nullptr), gbTexture(0), quadVAO(0), quadVBO(0), shaderProgram(0) {}
+Renderer::Renderer() : glContext(nullptr), window(nullptr), gbTexture(0), quadVAO(0), quadVBO(0), shaderProgram(0), imguiInitialized(false) {}
 Renderer::~Renderer() { Shutdown(); }
 
 // Initialize SDL3 OpenGL context + GLAD + ImGui
@@ -33,12 +33,14 @@ bool Renderer::Init(SDL_Window* window)
 {
     this->window = window;
     glContext = SDL_GL_CreateContext(window);
-
     if (!glContext) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION,
             "Failed to create OpenGL context: %s", SDL_GetError());
         return false;
     }
+
+    // Enable VSync
+    SDL_GL_SetSwapInterval(1);
 
     if (!gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress)) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Failed to initialize GLAD");
@@ -47,16 +49,22 @@ bool Renderer::Init(SDL_Window* window)
 
     SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "OpenGL version: %s", glGetString(GL_VERSION));
 
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGui::StyleColorsDark();
-
-    ImGui_ImplSDL3_InitForOpenGL(window, glContext);
-    ImGui_ImplOpenGL3_Init("#version 330");
+    // ImGui setup
+    if (!imguiInitialized) {
+        IMGUI_CHECKVERSION();
+        ImGui::CreateContext();
+        ImGui::StyleColorsDark();
+        ImGui_ImplSDL3_InitForOpenGL(window, glContext);
+        ImGui_ImplOpenGL3_Init("#version 330");
+        imguiInitialized = true;
+    }
 
     InitFramebufferTexture();
     InitFullscreenQuad();
-    InitShaders();
+    if (!InitShaders()) {
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Shader initialization failed");
+        return false;
+    }
 
     return true;
 }
@@ -94,6 +102,9 @@ void Renderer::InitFullscreenQuad()
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
     glEnableVertexAttribArray(1);
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
 }
 
 GLuint Renderer::CompileShader(const char* source, GLenum type)
@@ -107,12 +118,13 @@ GLuint Renderer::CompileShader(const char* source, GLenum type)
     if (!success) {
         char infoLog[512];
         glGetShaderInfoLog(shader, 512, nullptr, infoLog);
-        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Shader compilation failed: %s", infoLog);
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "%s shader compile error: %s",
+            type == GL_VERTEX_SHADER ? "Vertex" : "Fragment", infoLog);
     }
     return shader;
 }
 
-void Renderer::InitShaders()
+bool Renderer::InitShaders()
 {
     GLuint vertex = CompileShader(vertexShaderSrc, GL_VERTEX_SHADER);
     GLuint fragment = CompileShader(fragmentShaderSrc, GL_FRAGMENT_SHADER);
@@ -128,14 +140,29 @@ void Renderer::InitShaders()
         char infoLog[512];
         glGetProgramInfoLog(shaderProgram, 512, nullptr, infoLog);
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Shader linking failed: %s", infoLog);
+        glDeleteShader(vertex);
+        glDeleteShader(fragment);
+        return false;
     }
 
     glDeleteShader(vertex);
     glDeleteShader(fragment);
+
+    // Set the texture sampler to unit 0
+    glUseProgram(shaderProgram);
+    GLint loc = glGetUniformLocation(shaderProgram, "screenTexture");
+    if (loc >= 0) glUniform1i(loc, 0);
+    glUseProgram(0);
+
+    return true;
 }
 
 void Renderer::BeginFrame()
 {
+    int w, h;
+    SDL_GetWindowSize(window, &w, &h);
+    glViewport(0, 0, w, h);
+
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplSDL3_NewFrame();
     ImGui::NewFrame();
@@ -161,13 +188,19 @@ void Renderer::RenderUI(PPU* ppu)
 
 void Renderer::RenderGameboyFrame(uint8_t* ppuFramebuffer)
 {
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, gbTexture);
     glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 160, 144, GL_RGB, GL_UNSIGNED_BYTE, ppuFramebuffer);
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
 
     glUseProgram(shaderProgram);
     glBindVertexArray(quadVAO);
-    glBindTexture(GL_TEXTURE_2D, gbTexture);
     glDrawArrays(GL_TRIANGLES, 0, 6);
+
+    glBindVertexArray(0);
+    glUseProgram(0);
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void Renderer::EndFrame()
@@ -182,12 +215,14 @@ void Renderer::Shutdown()
     if (quadVAO) glDeleteVertexArrays(1, &quadVAO);
     if (gbTexture) glDeleteTextures(1, &gbTexture);
 
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplSDL3_Shutdown();
-    ImGui::DestroyContext();
+    if (imguiInitialized) {
+        ImGui_ImplOpenGL3_Shutdown();
+        ImGui_ImplSDL3_Shutdown();
+        ImGui::DestroyContext();
+        imguiInitialized = false;
+    }
 
-    if (glContext)
-    {
+    if (glContext) {
         SDL_GL_DestroyContext(glContext);
         glContext = nullptr;
     }
