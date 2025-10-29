@@ -1,14 +1,17 @@
 #include <SDL3/SDL.h>
 #include "Renderer.h"
 #include "PPU.h"
+#include "MMU.h"
+#include "CPU.h"
 #include <backends/imgui_impl_sdl3.h>
 #include <backends/imgui_impl_opengl3.h>
+#include <iostream>
 
 // Helper functions
 SDL_Window* InitSDL();
 Renderer* InitRenderer(SDL_Window* window);
 void Cleanup(SDL_Window* window, Renderer* renderer);
-void MainLoop(SDL_Window* window, Renderer* renderer, PPU& ppu);
+void MainLoop(SDL_Window* window, Renderer* renderer, CPU& cpu, PPU& ppu, MMU& mmu);
 
 int main()
 {
@@ -16,22 +19,31 @@ int main()
     if (!window) return -1;
 
     Renderer* renderer = InitRenderer(window);
-    if (!renderer) {
+    if (!renderer)
+    {
         SDL_DestroyWindow(window);
         return -1;
     }
 
-    PPU ppu; // PPU instance
+    // --- Emulator core initialization ---
+    PPU ppu;
+    MMU mmu(&ppu);
+    mmu.LoadTestProgram(); // small test program increments registers
+    CPU cpu(&mmu);
 
-    MainLoop(window, renderer, ppu);
+    cpu.Reset();
+    ppu.Reset();
+
+    MainLoop(window, renderer, cpu, ppu, mmu);
+
     Cleanup(window, renderer);
-
     return 0;
 }
 
 SDL_Window* InitSDL()
 {
-    if (!SDL_Init(SDL_INIT_VIDEO)) {
+    if (!SDL_Init(SDL_INIT_VIDEO))
+    {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "SDL_Init failed: %s", SDL_GetError());
         return nullptr;
     }
@@ -46,13 +58,12 @@ SDL_Window* InitSDL()
         SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE
     );
 
-    if (!window) {
+    if (!window)
+    {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "SDL_CreateWindow failed: %s", SDL_GetError());
         SDL_Quit();
         return nullptr;
     }
-
-    SDL_SetWindowPosition(window, 100, 100);
 
     return window;
 }
@@ -60,7 +71,8 @@ SDL_Window* InitSDL()
 Renderer* InitRenderer(SDL_Window* window)
 {
     Renderer* renderer = new Renderer();
-    if (!renderer->Init(window)) {
+    if (!renderer->Init(window))
+    {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Renderer initialization failed");
         delete renderer;
         return nullptr;
@@ -70,7 +82,8 @@ Renderer* InitRenderer(SDL_Window* window)
 
 void Cleanup(SDL_Window* window, Renderer* renderer)
 {
-    if (renderer) {
+    if (renderer)
+    {
         renderer->Shutdown();
         delete renderer;
     }
@@ -78,27 +91,41 @@ void Cleanup(SDL_Window* window, Renderer* renderer)
     SDL_Quit();
 }
 
-void MainLoop(SDL_Window* window, Renderer* renderer, PPU& ppu)
+// --- Main emulator loop ---
+void MainLoop(SDL_Window* window, Renderer* renderer, CPU& cpu, PPU& ppu, MMU& mmu)
 {
     bool running = true;
     SDL_Event event;
 
-    while (running) {
-        while (SDL_PollEvent(&event)) {
+    const int cyclesPerFrame = 69905; // DMG CPU: ~4.19MHz / 60Hz
+    uint64_t lastTime = SDL_GetTicks();
+
+    while (running)
+    {
+        while (SDL_PollEvent(&event))
+        {
             ImGui_ImplSDL3_ProcessEvent(&event);
             if (event.type == SDL_EVENT_QUIT)
                 running = false;
         }
 
-        renderer->BeginFrame();
+        int cyclesThisFrame = 0;
+        while (cyclesThisFrame < cyclesPerFrame)
+        {
+            cyclesThisFrame += cpu.Step();
+        }
 
-        // Render GameBoy framebuffer
+        // Render
         ppu.RenderFrame();
+        renderer->BeginFrame();
         renderer->RenderGameboyFrame(ppu.GetFramebuffer());
-
-        // Render debug UI
-        renderer->RenderUI(&ppu);
-
+        renderer->RenderUI(&ppu, &cpu);
         renderer->EndFrame();
+
+        // Frame limiting to ~60Hz
+        uint64_t now = SDL_GetTicks();
+        uint64_t delta = now - lastTime;
+        if (delta < 16) SDL_Delay(16 - delta); // ~16ms per frame
+        lastTime = SDL_GetTicks();
     }
 }

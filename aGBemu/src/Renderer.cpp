@@ -1,4 +1,5 @@
 #include "Renderer.h"
+#include "CPU.h"
 #include <imgui.h>
 #include <backends/imgui_impl_sdl3.h>
 #include <backends/imgui_impl_opengl3.h>
@@ -171,11 +172,20 @@ void Renderer::BeginFrame()
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void Renderer::RenderUI(PPU* ppu)
+void Renderer::RenderUI(PPU* ppu, CPU* cpu)
 {
     ImGui::Begin("GameBoy Emulator");
+
     ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
 
+    // Show only registers A and B from CPU
+    if (cpu) {
+        ImGui::Text("Registers (Test Program):");
+        ImGui::Text("A: 0x%02X", cpu->GetA());
+        ImGui::Text("B: 0x%02X", cpu->GetB());
+    }
+
+    // Optional: PPU placeholder
     if (ppu) {
         ImGui::Text("PPU framebuffer placeholder");
     }
