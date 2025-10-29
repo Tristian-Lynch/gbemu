@@ -82,13 +82,14 @@ void MMU::Write16(uint16_t addr, uint16_t value)
 void MMU::LoadTestProgram()
 {
     uint8_t program[] = {
-        0x3E, 0x3C,       // LD A, 0x3C
-        0x06, 0x42,       // LD B, 0x42
-        0x04,             // INC B
+        0x3E, 0x3C,       // LD A, 0x3C       ; initialize A
+        0x06, 0x42,       // LD B, 0x42       ; initialize B
+        0x04,             // loop_start: INC B
         0x00,             // NOP
-        0xC3, 0x00, 0x01  // JP 0x0100
+        0xC3, 0x04, 0x01  // JP 0x0104        ; jump back to INC B
     };
 
     for (int i = 0; i < sizeof(program); ++i)
         rom[0x0100 + i] = program[i];
 }
+
