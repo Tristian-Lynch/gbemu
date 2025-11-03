@@ -13,7 +13,7 @@ Renderer* InitRenderer(SDL_Window* window);
 void Cleanup(SDL_Window* window, Renderer* renderer);
 void MainLoop(SDL_Window* window, Renderer* renderer, CPU& cpu, PPU& ppu, MMU& mmu);
 
-int main()
+int main(int argc, char** argv)
 {
     SDL_Window* window = InitSDL();
     if (!window) return -1;
@@ -28,7 +28,15 @@ int main()
     // --- Emulator core initialization ---
     PPU ppu;
     MMU mmu(&ppu);
-    mmu.LoadTestProgram(); // small test program increments registers
+    
+    // Optional ROM path from CLI; otherwise load via UI or drag-and-drop
+    if (argc >= 2) {
+        const char* romPath = argv[1];
+        if (!mmu.LoadROMFromFile(romPath))
+        {
+            SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Failed to load ROM: %s", romPath);
+        }
+    }
     CPU cpu(&mmu);
 
     cpu.Reset();
@@ -96,6 +104,8 @@ void MainLoop(SDL_Window* window, Renderer* renderer, CPU& cpu, PPU& ppu, MMU& m
 {
     bool running = true;
     SDL_Event event;
+    bool paused = !mmu.IsROMLoaded();
+    uint32_t lastRomGen = mmu.GetROMLoadGeneration();
 
     const int cyclesPerFrame = 69905; // DMG CPU: ~4.19MHz / 60Hz
     uint64_t lastTime = SDL_GetTicks();
@@ -107,19 +117,48 @@ void MainLoop(SDL_Window* window, Renderer* renderer, CPU& cpu, PPU& ppu, MMU& m
             ImGui_ImplSDL3_ProcessEvent(&event);
             if (event.type == SDL_EVENT_QUIT)
                 running = false;
+            // Handle drag-and-drop of ROM files
+            if (event.type == SDL_EVENT_DROP_FILE && event.drop.data)
+            {
+                const char* dropped = event.drop.data;
+                if (!mmu.LoadROMFromFile(dropped))
+                {
+                    SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Failed to load ROM: %s", dropped);
+                }
+                else
+                {
+                    SDL_Log("Loaded ROM: %s", dropped);
+                }
+            }
+        }
+
+        // Detect newly loaded ROM and reset core, unpause
+        uint32_t gen = mmu.GetROMLoadGeneration();
+        if (gen != lastRomGen)
+        {
+            lastRomGen = gen;
+            cpu.Reset();
+            ppu.Reset();
+            paused = false;
         }
 
         int cyclesThisFrame = 0;
-        while (cyclesThisFrame < cyclesPerFrame)
+        if (!paused)
         {
-            cyclesThisFrame += cpu.Step();
+            while (cyclesThisFrame < cyclesPerFrame)
+            {
+                cyclesThisFrame += cpu.Step();
+            }
         }
 
         // Render
-        ppu.RenderFrame();
+        if (!paused)
+        {
+            ppu.RenderFrame();
+        }
         renderer->BeginFrame();
         renderer->RenderGameboyFrame(ppu.GetFramebuffer());
-        renderer->RenderUI(&ppu, &cpu);
+        renderer->RenderUI(&ppu, &cpu, &mmu, &paused);
         renderer->EndFrame();
 
         // Frame limiting to ~60Hz

@@ -2,6 +2,7 @@
 #include "PPU.h"
 #include <cstring>
 #include <iostream>
+#include <fstream>
 
 MMU::MMU(PPU* ppu) : ppu(ppu)
 {
@@ -9,6 +10,8 @@ MMU::MMU(PPU* ppu) : ppu(ppu)
     std::memset(wram, 0, sizeof(wram));
     std::memset(hram, 0, sizeof(hram));
     std::memset(io, 0, sizeof(io));
+    romLoaded = false;
+    romLoadGeneration = 0;
 }
 
 // --- 8-bit memory access ---
@@ -30,7 +33,22 @@ uint8_t MMU::Read8(uint16_t addr)
         return hram[addr - 0xFF80];
 
     if (addr >= 0xFF00 && addr <= 0xFF7F)
-        return io[addr - 0xFF00];
+    {
+        uint16_t i = addr - 0xFF00;
+        switch (addr)
+        {
+        case 0xFF40: return ppu->GetLCDC();
+        case 0xFF42: return io[i]; // SCY mirror
+        case 0xFF43: return io[i]; // SCX mirror
+        case 0xFF47: return io[i]; // BGP
+        case 0xFF48: return io[i]; // OBP0
+        case 0xFF49: return io[i]; // OBP1
+        case 0xFF4A: return io[i]; // WY
+        case 0xFF4B: return io[i]; // WX
+        default:
+            return io[i];
+        }
+    }
 
     return 0; // Unmapped memory returns 0
 }
@@ -60,7 +78,20 @@ void MMU::Write8(uint16_t addr, uint8_t value)
     }
     else if (addr >= 0xFF00 && addr <= 0xFF7F)
     {
-        io[addr - 0xFF00] = value;
+        uint16_t i = addr - 0xFF00;
+        io[i] = value;
+        switch (addr)
+        {
+        case 0xFF40: ppu->SetLCDC(value); break;
+        case 0xFF42: ppu->SetSCY(value); break;
+        case 0xFF43: ppu->SetSCX(value); break;
+        case 0xFF47: ppu->SetBGP(value); break;
+        case 0xFF48: ppu->SetOBP0(value); break;
+        case 0xFF49: ppu->SetOBP1(value); break;
+        case 0xFF4A: ppu->SetWY(value); break;
+        case 0xFF4B: ppu->SetWX(value); break;
+        default: break;
+        }
     }
 }
 
@@ -76,6 +107,38 @@ void MMU::Write16(uint16_t addr, uint16_t value)
 {
     Write8(addr, value & 0xFF);
     Write8(addr + 1, value >> 8);
+}
+
+// --- Load ROM from file (up to 32KB, no MBC) ---
+bool MMU::LoadROMFromFile(const char* filepath)
+{
+    std::ifstream file(filepath, std::ios::binary);
+    if (!file)
+    {
+        std::cerr << "Failed to open ROM: " << filepath << std::endl;
+        return false;
+    }
+
+    // Read up to 32KB into rom[]
+    std::memset(rom, 0, sizeof(rom));
+    file.read(reinterpret_cast<char*>(rom), sizeof(rom));
+    std::streamsize bytesRead = file.gcount();
+
+    if (bytesRead <= 0)
+    {
+        std::cerr << "ROM read returned 0 bytes: " << filepath << std::endl;
+        return false;
+    }
+
+    // If file exceeds 32KB, we currently ignore the remainder (no MBC implemented)
+    if (!file.eof())
+    {
+        std::cerr << "Warning: ROM larger than 32KB; only first 32KB loaded (no MBC)." << std::endl;
+    }
+
+    romLoaded = true;
+    romLoadGeneration++;
+    return true;
 }
 
 // --- Load a tiny test program into ROM ---

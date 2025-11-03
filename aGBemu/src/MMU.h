@@ -16,7 +16,12 @@ public:
     uint16_t Read16(uint16_t addr);
     void Write16(uint16_t addr, uint16_t value);
 
-    // Load a tiny in-memory test program at 0x0100
+    // Load ROM image into fixed 32KB ROM (no MBC yet)
+    bool LoadROMFromFile(const char* filepath);
+    bool IsROMLoaded() const { return romLoaded; }
+    uint32_t GetROMLoadGeneration() const { return romLoadGeneration; }
+    
+    // Load a tiny in-memory test program at 0x0100 (dev only)
     void LoadTestProgram();
 
 private:
@@ -27,4 +32,8 @@ private:
     uint8_t wram[0x2000];  // 8 KB Work RAM
     uint8_t hram[0x7F];    // High RAM
     uint8_t io[0x80];      // IO registers
+
+    // ROM load state
+    bool romLoaded = false;
+    uint32_t romLoadGeneration = 0; // increments each successful load
 };

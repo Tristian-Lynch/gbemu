@@ -7,6 +7,7 @@
 // Forward declarations
 class PPU;
 class CPU;
+class MMU;
 
 class Renderer
 {
@@ -22,7 +23,7 @@ public:
 
     // Frame lifecycle
     void BeginFrame();
-    void RenderUI(PPU* ppu = nullptr, CPU* cpu = nullptr); // <-- CPU pointer added
+    void RenderUI(PPU* ppu = nullptr, CPU* cpu = nullptr, MMU* mmu = nullptr, bool* paused = nullptr); // add ROM UI + pause toggle
     void RenderGameboyFrame(uint8_t* ppuFramebuffer);
     void EndFrame();
 

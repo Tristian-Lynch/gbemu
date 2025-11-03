@@ -4,6 +4,8 @@
 #include <backends/imgui_impl_sdl3.h>
 #include <backends/imgui_impl_opengl3.h>
 #include <SDL3/SDL_log.h>
+#include <SDL3/SDL_dialog.h>
+#include "MMU.h"
 
 // Simple vertex & fragment shaders for fullscreen quad
 static const char* vertexShaderSrc = R"(
@@ -172,11 +174,48 @@ void Renderer::BeginFrame()
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void Renderer::RenderUI(PPU* ppu, CPU* cpu)
+// File dialog callback for SDL_ShowOpenFileDialog
+static void SDLCALL OnRomSelected(void* userdata, const char* const* filelist, int numfiles)
+{
+    if (!userdata || numfiles <= 0 || !filelist || !filelist[0]) return;
+    MMU* mmu = reinterpret_cast<MMU*>(userdata);
+    const char* path = filelist[0];
+    if (!mmu->LoadROMFromFile(path)) {
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Failed to load ROM: %s", path);
+    } else {
+        SDL_Log("Loaded ROM: %s", path);
+    }
+}
+
+void Renderer::RenderUI(PPU* ppu, CPU* cpu, MMU* mmu, bool* paused)
 {
     ImGui::Begin("GameBoy Emulator");
 
     ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
+
+    // ROM controls
+    if (mmu)
+    {
+        if (ImGui::Button("Open ROM..."))
+        {
+            SDL_ShowOpenFileDialog(OnRomSelected, mmu, window, nullptr, 0, nullptr, false);
+        }
+        ImGui::SameLine();
+        ImGui::TextDisabled("Drag & drop a .gb file onto the window");
+
+        bool loaded = mmu->IsROMLoaded();
+        ImGui::Text("ROM: %s", loaded ? "Loaded" : "None");
+    }
+
+    if (paused)
+    {
+        ImGui::Separator();
+        bool p = *paused;
+        if (ImGui::Checkbox("Paused", &p))
+        {
+            *paused = p;
+        }
+    }
 
     // Show only registers A and B from CPU
     if (cpu) {
