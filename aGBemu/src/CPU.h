@@ -3,13 +3,18 @@
 
 class MMU;
 
-class CPU {
+class CPU
+{
 public:
     CPU(MMU* mmu);
 
     void Reset();
-    void Step();           // Execute a single instruction
+    int Step();            // Execute a single instruction, return cycles
     void RunCycles(int n); // Optional: execute n cycles
+
+    // --- NEW: expose only registers A and B for debug UI ---
+    uint8_t GetA() const { return A; }
+    uint8_t GetB() const { return B; }
 
 private:
     MMU* mmu;

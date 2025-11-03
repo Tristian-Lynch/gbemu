@@ -4,10 +4,12 @@
 #include <SDL3/SDL_opengl.h>
 #include <cstdint>
 
-// Forward declaration for optional PPU framebuffer rendering
+// Forward declarations
 class PPU;
+class CPU;
 
-class Renderer {
+class Renderer
+{
 public:
     Renderer();
     ~Renderer();
@@ -20,7 +22,7 @@ public:
 
     // Frame lifecycle
     void BeginFrame();
-    void RenderUI(PPU* ppu = nullptr);
+    void RenderUI(PPU* ppu = nullptr, CPU* cpu = nullptr); // <-- CPU pointer added
     void RenderGameboyFrame(uint8_t* ppuFramebuffer);
     void EndFrame();
 
